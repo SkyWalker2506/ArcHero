@@ -14,6 +14,8 @@ public class PowerUpButtonController : MonoBehaviour
         MultipleArrowPowerUp.PowerUpDeActivated = DeActivateMultipleShotButton;
         ConsecutiveShotPowerUp.PowerUpActivated = ActivateConsecutiveShotButton;
         ConsecutiveShotPowerUp.PowerUpDeActivated = DeActivateConsecutiveShotButton;
+        FasterShotPowerUp.PowerUpActivated = ActivateFasterShotButton;
+        FasterShotPowerUp.PowerUpDeActivated = DeActivateFasterShotButton;
     }
 
     void ActivateMultipleShotButton()
@@ -35,6 +37,18 @@ public class PowerUpButtonController : MonoBehaviour
     {
         powerUpButtonModel.SetConsecutiveShot(false);
     }
+
+    void ActivateFasterShotButton()
+    {
+        powerUpButtonModel.SetFasterShot(true);
+    }
+
+    void DeActivateFasterShotButton()
+    {
+        powerUpButtonModel.SetFasterShot(false);
+    }
+
+
     void SetPowerLimitReached()
     {
         powerUpButtonModel.SetPowerLimitReached(PowerUp.isActivePowerLimitReached);

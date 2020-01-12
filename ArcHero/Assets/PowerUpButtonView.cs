@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,9 +8,7 @@ public class PowerUpButtonView : MonoBehaviour
     [SerializeField] Color deActivatedButtonColor;
     [SerializeField] Button multipleArrowPowerUpButton; 
     [SerializeField] Button consecutiveShotPowerUpButton;
-    [SerializeField] Button consecutiveShotPowerUpButton2;
-
-
+    [SerializeField] Button fasterShotPowerUpButton;
 
     private void Awake()
     {
@@ -29,14 +25,13 @@ public class PowerUpButtonView : MonoBehaviour
     {
         multipleArrowPowerUpButton.image.color= Color.Lerp(deActivatedButtonColor, activatedButtonColor, Convert.ToInt32(pubm.isMultipleShotActive));
         consecutiveShotPowerUpButton.image.color= Color.Lerp(deActivatedButtonColor, activatedButtonColor, Convert.ToInt32(pubm.isConsecutiveShotActive));
-        consecutiveShotPowerUpButton2.image.color= Color.Lerp(deActivatedButtonColor, activatedButtonColor, Convert.ToInt32(pubm.isConsecutiveShotActive));
+        fasterShotPowerUpButton.image.color= Color.Lerp(deActivatedButtonColor, activatedButtonColor, Convert.ToInt32(pubm.isFasterShotActive));
     }
 
     void SetButtonInteractable(PowerUpButtonModel pubm)
     {
         multipleArrowPowerUpButton.interactable = !pubm.isPowerLimitReached || (pubm.isPowerLimitReached && pubm.isMultipleShotActive);
         consecutiveShotPowerUpButton.interactable = !pubm.isPowerLimitReached || (pubm.isPowerLimitReached && pubm.isConsecutiveShotActive);
+        fasterShotPowerUpButton.interactable = !pubm.isPowerLimitReached || (pubm.isPowerLimitReached && pubm.isFasterShotActive);
     }
-
-
 }

@@ -6,20 +6,25 @@ public class PowerUpButtonModel : MonoBehaviour
     internal bool isPowerLimitReached;
     internal bool isMultipleShotActive;
     internal bool isConsecutiveShotActive;
+    internal bool isFasterShotActive;
 
     public static Action<PowerUpButtonModel> ModelChanged;
 
     internal void SetConsecutiveShot(bool value)
     {
-        print("SetConsecutiveShot");
         isConsecutiveShotActive = value;
         ModelChanged?.Invoke(this);
     }
 
     internal void SetMultipleShot(bool value)
     {
-        print("SetMultipleShot");
         isMultipleShotActive = value;
+        ModelChanged?.Invoke(this);
+    }
+
+    internal void SetFasterShot(bool value)
+    {
+        isFasterShotActive = value;
         ModelChanged?.Invoke(this);
     }
 
@@ -28,5 +33,4 @@ public class PowerUpButtonModel : MonoBehaviour
         isPowerLimitReached = value;
         ModelChanged?.Invoke(this);
     }
-
 }

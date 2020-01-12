@@ -89,4 +89,14 @@ public class PlayerShotBehaviour : MonoBehaviour
     {
         shotAmount = dv.DefaultShotAmount;
     }
+
+    public static void ActivateFasterShot()
+    {
+        shotFrequency = 1;
+    }
+
+    public static void DeActivateFasterShot()
+    {
+        shotFrequency = dv.DefaultShotFrequency;
+    }
 }

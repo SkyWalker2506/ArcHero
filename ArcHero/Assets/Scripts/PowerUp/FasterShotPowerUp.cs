@@ -9,14 +9,14 @@ public class FasterShotPowerUp : PowerUp
 
     public override void ActivatePowerUp()
     {
-        PlayerShotBehaviour.ActivateFasterShot();
+        PlayerShotBehaviour.MultiplyShotSpeed(1.5f);
         PowerUpActivated?.Invoke();
         base.ActivatePowerUp();
     }
 
     public override void DeActivatePowerUp()
     {
-        PlayerShotBehaviour.DeActivateFasterShot();
+        PlayerShotBehaviour.MultiplyShotSpeed(2/3f);
         PowerUpDeActivated?.Invoke();
         base.DeActivatePowerUp();
     }

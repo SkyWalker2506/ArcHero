@@ -11,17 +11,12 @@ public class PlayerShotBehaviour : MonoBehaviour
     static float shotFrequency;
     static int shotAmount;
     static List<Vector3> directions;
-    bool isShootingArrow;
+    static bool isShootingArrow;
     float arrowTimer;
 
     private void Awake()
     {
         dv = Instantiate(defaultValues);
-        shotSpeed = dv.DefaultShotSpeed;
-        shotFrequency = dv.DefaultShotFrequency;
-        shotAmount = dv.DefaultShotAmount;
-        directions = dv.Directions;
-        StartShooting();
     }
 
     private void Update()
@@ -31,31 +26,18 @@ public class PlayerShotBehaviour : MonoBehaviour
             StartCoroutine(ShotArrows());
     }
 
-    void StartShooting()
+    public static void StartShooting()
     {
+        shotSpeed = dv.DefaultShotSpeed;
+        shotFrequency = dv.DefaultShotFrequency;
+        shotAmount = dv.DefaultShotAmount;
+        directions = dv.Directions;
         isShootingArrow = true;
-        arrowTimer = 0;
     }
 
-    void StopShooting()
+    public static void StopShooting()
     {
         isShootingArrow = false;
-        arrowTimer = shotFrequency;
-    }
-
-    void ShotAnArrow(Vector3 direction)
-    {
-       var arrowDirection = direction + transform.rotation.eulerAngles;
-       var arrow = Instantiate(arrowPrefab, transform.position+transform.forward, Quaternion.Euler(arrowDirection)).GetComponent<Arrow>();
-       arrow.arrowSpeed = shotSpeed;
-    }
-
-    void ShotAllArrows(List<Vector3> directions)
-    {
-        foreach(Vector3 direction in directions)
-        {
-            ShotAnArrow(direction);
-        }
     }
 
     IEnumerator ShotArrows()
@@ -64,8 +46,23 @@ public class PlayerShotBehaviour : MonoBehaviour
         for (int i = 0; i < shotAmount; i++)
         {
             yield return new WaitForSeconds(.1f);
-           ShotAllArrows(directions); 
+            ShotToAllDirections(directions);
         }
+    }
+
+    void ShotToAllDirections(List<Vector3> directions)
+    {
+        foreach(Vector3 direction in directions)
+        {
+            ShotAnArrow(direction);
+        }
+    }
+
+    void ShotAnArrow(Vector3 direction)
+    {
+       var arrowDirection = direction + transform.rotation.eulerAngles;
+       var arrow = Instantiate(arrowPrefab, transform.position+transform.forward, Quaternion.Euler(arrowDirection)).GetComponent<Arrow>();
+       arrow.arrowSpeed = shotSpeed;
     }
 
     public static void AddDirection(Vector3 direction)
@@ -80,23 +77,19 @@ public class PlayerShotBehaviour : MonoBehaviour
             directions.Remove(direction);
     }
 
-    public static void ActivateConsecutiveShot()
+    public static void AddShotAmount(int shotAmnt)
     {
-        shotAmount = dv.DefaultShotAmount+1;
+        shotAmount += shotAmnt;
     }
 
-    public static void DeActivateConsecutiveShot()
+    public static void MultiplyShotInterval(float intervalMultiplier)
     {
-        shotAmount = dv.DefaultShotAmount;
+        shotFrequency *= intervalMultiplier;
     }
 
-    public static void ActivateFasterShot()
+    public static void MultiplyShotSpeed(float speedMultiplier)
     {
-        shotFrequency = 1;
+        shotSpeed *= speedMultiplier;
     }
-
-    public static void DeActivateFasterShot()
-    {
-        shotFrequency = dv.DefaultShotFrequency;
-    }
+    
 }
